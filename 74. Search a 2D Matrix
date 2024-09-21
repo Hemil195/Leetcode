@@ -1,0 +1,43 @@
+class Solution {
+    public boolean searchMatrix(int[][] matrix, int target) {
+        int m = matrix.length - 1;
+        int n = matrix[0].length - 1;
+        int bot = 0;
+        int top = matrix.length - 1;
+        while (bot <= top) {
+            int midr = bot + ((top - bot) / 2);
+            if (matrix[midr][0] <= target && matrix[midr][n] >= target) {
+                return find_index(matrix, midr, n, target);
+            } else if (matrix[midr][n] < target) {
+                bot = midr + 1;
+            } else {
+                top = midr - 1;
+            }
+        }
+        return false;
+    }
+
+    public boolean find_index(int[][] matrix,int midr, int col, int k)
+    {
+        int left = 0;
+        int right = col;
+        while (left <= right)
+        {
+            int mid =left+ ((right-left) / 2);
+
+            if (matrix[midr][mid] == k)
+            {
+                return true;
+            }
+            else if (matrix[midr][mid] < k)
+            {
+                left = mid + 1;
+            }
+            else if (matrix[midr][mid] > k)
+            {
+                right = mid - 1;
+            }
+        }
+        return false;
+    }
+}
